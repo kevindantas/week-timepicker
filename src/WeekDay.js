@@ -3,10 +3,9 @@ import './styles/WeekDay.scss';
 
 class WeekDay extends PureComponent {
   render() {
-    const {label}=this.props;
     return (
-      <div>
-        <h2 className="WeekDay-title">{label}</h2>
+      <div className="WeekDay">
+        
       </div>
     )
   }
