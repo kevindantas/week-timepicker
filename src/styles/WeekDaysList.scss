@@ -1,3 +1,23 @@
+@import '_variables.scss';
+
 .WeekDaysList {
   display: inline-flex;
+  flex: 1;
+  position: relative;
+
+  .rowLines {
+    padding-top: $header-height;
+  }
+
+  .rowLine {
+    height: $row-height;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      border-bottom: 1px solid $line-color;
+      pointer-events: none;
+    }
+  }
 }

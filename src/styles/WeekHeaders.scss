@@ -1,0 +1,29 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+
+.WeekHeaders {
+  display: flex;
+  overflow-y: scroll;
+  @include scrollbar();
+  
+  &-hours {
+    width: $hours-width;
+  }
+
+  .DayHeader {
+    flex: 1;
+    border-left: 1px solid $line-color;
+
+    &:last-child {
+      border-right: 1px solid $line-color;
+    }
+
+    &-title {
+      font-size: 1.2rem;
+      margin: 0;
+      height: $header-height;
+      line-height: $header-height;
+      text-align: center;
+    }
+  }
+}

@@ -1,3 +1,16 @@
+@import '_variables.scss';
+
 .HourLabel {
-  font-size: 1rem;
+  font-size: .9rem;
+  height: $row-height;
+  text-align: center;
+
+  &:first-child {
+    visibility: hidden;
+  }
+
+  span {
+    position: relative;
+    top: $hour-label-top;
+  }
 }

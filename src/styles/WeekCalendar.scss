@@ -1,3 +1,20 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+
 .WeekCalendar {
-  display: flex;
+  width: 100%;
+  position: relative;
+  border: 1px solid $line-color;
+  
+  * {
+    box-sizing: border-box;
+  }
+
+  &-content {
+    display: flex;
+    height: 500px;
+    overflow-y: scroll;
+    @include scrollbar();
+  }
+
 }
