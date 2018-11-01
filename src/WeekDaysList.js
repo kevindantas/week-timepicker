@@ -34,13 +34,6 @@ class WeekDaysList extends PureComponent {
           {this.renderRowLines()}
         </div>
         {this.renderDays()}
-
-        <WeekDay label="Monday" />
-        <WeekDay label="Tuesday" />
-        <WeekDay label="Wednesday" />
-        <WeekDay label="Thursday" />
-        <WeekDay label="Friday" />
-        <WeekDay label="Saturday" />
       </div>
     );
   }
