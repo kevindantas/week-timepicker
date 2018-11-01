@@ -3,6 +3,7 @@
 .WeekDay {
   flex: 1;
   border-left: 1px solid $line-color;
+  position: relative;
 
   // &::after {
   //   content: '';
