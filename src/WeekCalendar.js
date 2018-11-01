@@ -5,14 +5,14 @@ import WeekHeaders from './WeekHeaders';
 import { createRangeArray } from './utils';
 import './styles/WeekCalendar.scss';
 
-function WeekCalendar({ hoursRange = [0, 23] }) {
+function WeekCalendar({ selectedRanges = [], hoursRange = [0, 23] }) {
   const calendarHours = createRangeArray(...hoursRange);
   return (
     <div className="WeekCalendar">
       <WeekHeaders />
       <div className="WeekCalendar-content">
         <HourLabelList range={calendarHours} />
-        <WeekDaysList hoursRange={calendarHours} />
+        <WeekDaysList selectedRanges={selectedRanges} hoursRange={calendarHours} />
       </div>
     </div>
   );
