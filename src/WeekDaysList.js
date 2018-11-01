@@ -4,7 +4,7 @@ import { keyBy } from 'lodash';
 import './styles/WeekDaysList.scss';
 
 class WeekDaysList extends PureComponent {
-  weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Friday', 'Saturday'];
+  weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   renderRowLines() {
     const { hoursRange } = this.props;
@@ -34,13 +34,6 @@ class WeekDaysList extends PureComponent {
           {this.renderRowLines()}
         </div>
         {this.renderDays()}
-
-        <WeekDay label="Monday" />
-        <WeekDay label="Tuesday" />
-        <WeekDay label="Wednesday" />
-        <WeekDay label="Thursday" />
-        <WeekDay label="Friday" />
-        <WeekDay label="Saturday" />
       </div>
     );
   }
