@@ -65,7 +65,7 @@ class WeekDay extends PureComponent {
   };
 
   renderCells() {
-    const { selectedHours = [] } = this.state;
+    const { selectedHours } = this.state;
     return selectedHours.map(hour => (
       <CalendarCell key={hour.initialTime} {...hour} />
     ));
