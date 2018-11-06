@@ -2,6 +2,7 @@
 
 .CalendarCell {
   width: 80%;
+  min-height: 28px;
   background: $cell-bg;
   color: $cell-color;
   border-radius: 3px;
@@ -25,6 +26,10 @@
 
   span {
     font-size: 0.9rem;
+  }
+
+  &--draft {
+    transition: none;
   }
 
   &-handle {

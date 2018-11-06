@@ -12,7 +12,6 @@
 
   &-content {
     display: flex;
-    height: 500px;
     overflow-y: scroll;
     @include scrollbar();
   }
