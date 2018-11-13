@@ -61,4 +61,53 @@ describe('<WeekDay />', () => {
     });
     expect(wrapper.find(CalendarCell)).toHaveLength(0);
   });
+
+  it('should cancel a unfinished new cell', () => {
+    const wrapper = mount(<WeekDay />);
+    wrapper.simulate('mousedown', {
+      persist() {},
+      clientY: 0,
+      target,
+    });
+
+    wrapper.simulate('mousemove', {
+      persist() {},
+      clientY: 48,
+      target,
+    });
+
+    wrapper.simulate('mouseup', {
+      persist() {},
+      clientY: 72,
+      target,
+    });
+
+    wrapper.find('.CellModal-cancelButton').simulate('click');
+
+    expect(wrapper.find(CalendarCell)).toHaveLength(0);
+  });
+
+  it('should create a new cell after confirm on modal', () => {
+    const wrapper = mount(<WeekDay />);
+    wrapper.simulate('mousedown', {
+      persist() { },
+      clientY: 0,
+      target,
+    });
+
+    wrapper.simulate('mousemove', {
+      persist() { },
+      clientY: 48,
+      target,
+    });
+
+    wrapper.simulate('mouseup', {
+      persist() { },
+      clientY: 72,
+      target,
+    });
+
+    wrapper.find('.CellModal-confirmButton').simulate('click');
+    expect(wrapper.find(CalendarCell)).toHaveLength(1);
+  });
 });

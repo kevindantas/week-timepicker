@@ -34,6 +34,28 @@ class WeekDay extends PureComponent {
     );
   }
 
+  handleConfirmTime = () => {
+    this.addNewCell();
+  };
+
+  handleTimeChange = values => {
+    const [newCellInitialTime, newCellFinalTime] = values;
+
+    this.setState({
+      newCellInitialTime,
+      newCellFinalTime,
+    });
+  };
+
+  cancelNewCell = e => {
+    e.stopPropagation();
+    this.setState({
+      shouldDrawCell: false,
+      newCellInitialTime: null,
+      newCellFinalTime: null,
+    });
+  };
+
   startDrawNewCell = e => {
     e.persist();
     const newCellInitialTime = this.getCellTime(e);
@@ -61,7 +83,6 @@ class WeekDay extends PureComponent {
       shouldDrawCell: false,
       newCellFinalTime,
     });
-    this.addNewCell();
   };
 
   renderCells() {
@@ -72,13 +93,17 @@ class WeekDay extends PureComponent {
   }
 
   renderNewCell() {
-    const { newCellInitialTime, newCellFinalTime } = this.state;
+    const { newCellInitialTime, newCellFinalTime, shouldDrawCell } = this.state;
     if (!newCellInitialTime) return null;
     return (
       <CalendarCell
         isDraft
+        onCancel={this.cancelNewCell}
+        showModal={!shouldDrawCell}
         initialTime={newCellInitialTime}
         finalTime={newCellFinalTime}
+        onTimeChange={this.handleTimeChange}
+        onConfirmTime={this.handleConfirmTime}
       />
     );
   }
