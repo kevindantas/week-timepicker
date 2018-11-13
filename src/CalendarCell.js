@@ -1,30 +1,82 @@
-import React from 'react';
+import React, { Fragment, PureComponent, createRef } from 'react';
+import { calculatePositionFromTime } from './utils';
 import './styles/CalendarCell.scss';
+import CellModal from './CellModal';
 
-const rowHeight = 48;
-const minuteHeight = rowHeight / 60;
-function CalendarCell({ initialTime, finalTime }) {
+class CalendarCell extends PureComponent {
+  cellElement = createRef();
+  rAF = null; // store the requestAnimationFrame id used to update the cellBoundings
 
-  const [ initialHour, initialMinute ] = initialTime.split(':');
-  const hourPosition = Number(initialHour) * rowHeight;
-  const minutePosition = Number(initialMinute) * minuteHeight;
-  const cellPosition = hourPosition + minutePosition;
+  handleTimeChange = values => {
+    this.props.onTimeChange(values);
+  };
 
-  const [ finalHour, finalMinute ] = finalTime.split(':');
-  const hourCellHeight = Number(finalHour) * rowHeight;
-  const minuteCellHeight = Number(finalMinute) * minuteHeight;
-  const cellHeight = (hourCellHeight + minuteCellHeight) - cellPosition;
-
-  const cellStyle = {
-    top: `${cellPosition}px`,
-    height: `${cellHeight}px`,
+  updateCellPosition() {
+    // rAF wait the next tick get the correct cell boundings
+    // and update the CellModal with the correct cell position
+    this.rAF = window.requestAnimationFrame(() => {
+      this.forceUpdate();
+      window.cancelAnimationFrame(this.rAF);
+    });
   }
-  return (
-    <div role="button" tabIndex={0} className="CalendarCell" style={cellStyle}>
-      <span>{initialTime} - {finalTime}</span>
-      <div className="CalendarCell-handle"></div>
-    </div>
-  );
+
+  render() {
+    const {
+      isDraft,
+      showModal,
+      initialTime,
+      finalTime,
+      onCancel,
+      onConfirmTime,
+    } = this.props;
+    const cellPosition = calculatePositionFromTime(initialTime);
+    let cellHeight = 0;
+    if (finalTime) {
+      cellHeight = calculatePositionFromTime(finalTime) - cellPosition;
+    }
+
+    const cellStyle = {
+      top: `${cellPosition}px`,
+      height: `${cellHeight}px`,
+    };
+    const draftClass = isDraft ? 'CalendarCell--draft' : '';
+    let cellBoundings;
+    if (this.cellElement.current) {
+      const { current } = this.cellElement;
+      cellBoundings = current.getBoundingClientRect();
+    }
+
+    this.updateCellPosition();
+
+    return (
+      <Fragment>
+        <div
+          ref={this.cellElement}
+          role="button"
+          tabIndex={0}
+          className={`CalendarCell ${draftClass}`}
+          style={cellStyle}
+        >
+          <span>
+            {initialTime}
+            {finalTime && `- ${finalTime}`}
+          </span>
+          <div className="CalendarCell-handle" />
+        </div>
+        {showModal && (
+          <CellModal
+            onCancel={onCancel}
+            cellBoundings={cellBoundings}
+            finalTime={finalTime}
+            initialTime={initialTime}
+            cellElement={this.cellElement}
+            onTimeChange={this.handleTimeChange}
+            onConfirmTime={onConfirmTime}
+          />
+        )}
+      </Fragment>
+    );
+  }
 }
 
 export default CalendarCell;

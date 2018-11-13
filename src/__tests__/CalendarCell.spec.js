@@ -17,4 +17,9 @@ describe('<CalendarCell>', () => {
     const cellHeight = 10 * rowHeight - cellPosition;
     expect(wrapper.find('.CalendarCell').props().style.height).toEqual(`${cellHeight}px`);
   });
+
+  it('should add modifier class when draft', () => {
+    const wrapper = mount(<CalendarCell isDraft initialTime="08:00" finalTime="10:00" />);
+    expect(wrapper.find('.CalendarCell--draft')).toHaveLength(1);
+  })
 })
