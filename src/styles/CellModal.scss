@@ -1,0 +1,107 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+@keyframes slideIn {
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.modal-wrapper {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .5);
+  display: flex;
+  pointer-events: all;
+  flex-direction: column;
+  // opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  transition: opacity 0.2s ease-in;
+  animation: fadeIn 0.2s ease-in forwards;
+
+  .modal-spacer {
+    min-height: 32px;
+    flex-grow: 1;
+    pointer-events: none;
+  }
+
+  .modal-bottom-spacing {
+    height: 32px;
+    pointer-events: none;
+  }
+}
+
+.CellModal {
+  padding: 1rem;
+  background: #fff;
+  position: relative;
+  max-width: 400px;
+  border-radius: 4px;
+  box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateX(15px);
+  animation: slideIn .2s ease-in .1s forwards;
+  will-change: opacity, transform;
+
+  &::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+  }
+
+  h4 {
+    margin: 0;
+  }
+
+  &-inputs {
+    background: #eee;
+    display: flex;
+  }
+
+  input {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+  }
+
+  &-actions {
+    padding-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  button {
+    border: none;
+    padding: 12px;
+    margin-left: 12px;
+    text-transform: uppercase;
+
+    &.CellModal-cancelButton {
+      background: none;
+    }
+
+    &.CellModal-confirmButton {
+      border-radius: 4px;
+      background: #8bc34a;
+      color: #fff;
+      transition: 0.2s ease-in;
+
+      &:hover {
+        background: lighten(#8bc34a, 3%);
+        box-shadow: 1px 3px 8px rgba(0,0,0,.2)
+      }
+    }
+  }
+}
